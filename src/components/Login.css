@@ -1,0 +1,40 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+.login {
+    background-color: #2550E9;
+    height:  100vh;
+    display: flex;
+    flex-direction:  column;
+    justify-content: center;
+    align-items: center;
+}
+
+.logo {
+    display: flex; 
+}
+
+.text {
+    font-size: 100px;
+    margin-top: 23px;
+}
+.music_img {
+ 
+    width: 150px;
+    height: 150px;
+}
+.connexion_btn {
+    margin-left: 50px;
+    margin-top: 25px;
+}
+
+.connexion_btn > button {
+    padding: 10px 160px;
+    border-radius: 40px;
+    font-size: 22px;
+    font-weight: bold;
+    color: white;
+    background-color: black;
+}
