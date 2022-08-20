@@ -61,6 +61,7 @@ const Container = styled.div`
      height: 100%;
      width: 100%;
      background-color: black;
+     color: white;
      .body{
          height: 100%;
          width: 100%;

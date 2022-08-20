@@ -22,6 +22,7 @@ function Playlists() {
                 return { name, id };
             });
             dispatch({ type: reducerCases.SET_PLAYLISTS, playlists });
+
         };
         getPlayListData();
     }, [token, dispatch]);
