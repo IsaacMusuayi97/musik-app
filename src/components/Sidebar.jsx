@@ -7,6 +7,11 @@ import Playlists from './Playlists';
 function Sidebar() {
     return (
         <Container>
+
+            <div className='logo'>
+                <img src="Component.png" alt="" />
+
+            </div>
             <div className="top__links">
                 <ul>
                     <li>
@@ -34,11 +39,21 @@ const Container = styled.div`
  color: white;
  display: flex;
  flex-direction: column;
+ justify-content: space-around;
+ alignt-items: center;
  height: 100%;
  width: 100%;
+ .logo {
+     margin-left: 20px;
+     margin-top: 20px;
+     margin-bottom: 8px;
+     width: 100px;
+ }
  .top__links {
      display: flex;
      flex-direction: column;
+     margin-top: 10px;
+     margin-bottom: 18px;
      ul {
          list-style-type: none;
          display: flex;

@@ -7,7 +7,7 @@ import axios from 'axios';
 import { reducerCases } from '../utils/Constants';
 
 
-function Body() {
+function Body({headerBackground}) {
     const [{ token, selectedPlaylistId, selectedPlaylist }, dispatch] = useStateProvider();
     useEffect(() => {
         const getInitialPlaylist = async () => {
@@ -47,8 +47,13 @@ function Body() {
         };
         getInitialPlaylist();
     }, [token, dispatch, selectedPlaylistId]);
+    const msToMinutesAndSecons = (ms) => {
+        const minutes = Math.floor(ms/ 60000);
+        const seconds = ((ms % 60000) / 1000).toFixed(0);
+        return minutes + ":" + (seconds < 10 ? "0" : "") + seconds;
+    };
     return (
-        <Container>
+        <Container headerBackground={headerBackground}>
 
 
             {selectedPlaylist && (
@@ -74,11 +79,11 @@ function Body() {
                             <div className="col">
                                 <span>ALBUM</span>
                             </div>
-                            <div className="col">
-                                {/* <span>
+                            {/* <div className="col">
+                                <span>
                                     <AiFillclockCircle />
-                                </span> */}
-                            </div>
+                                </span>
+                            </div> */}
                         </div>
                         <div className="tracks">
                             {selectedPlaylist.tracks.map(({
@@ -98,16 +103,17 @@ function Body() {
                                         </div>
                                         <div className="col detail">
                                             <img src={image} alt="track" />
-                                        </div>
+                                        
                                         <div className="info">
                                             <span className="name">{name}</span>
                                             <span>{artists}</span>
+                                        </div>
                                         </div>
                                         <div className="col">
                                             <span>{album}</span>
                                         </div>
                                         <div className="col">
-                                            <span>{duration}</span>
+                                            <span>{ msToMinutesAndSecons (duration)}</span>
                                         </div>
                                     </div>
                                 )
@@ -130,7 +136,7 @@ const Container = styled.div`
 .playlist {
     margin: 0 2rem;
     display: flex;
-    align-item: center;
+    align-items: center;
     gap: 2rem;
     .image {
         img {
@@ -159,6 +165,7 @@ const Container = styled.div`
         top: 15vh;
         padding: 1rem 3rem;
         transition: 0.3s ease-in-out;
+        background-color: ${({headerBackground})=> headerBackground ? "#000000" : "none"};
     }
     .tracks {
         margin: 0 2rem;
@@ -168,10 +175,10 @@ const Container = styled.div`
         .row {
             padding: 0.5rem 1rem;
             display: grid;
-            grid-template-columns: 0.3fr 3.1fr 2.3fr 0.1fr;
+            grid-template-columns: 0.3fr 3.1fr 2fr 0.1fr;
             &:hover {
-                background-color: white;
-                
+                background-color:  #13343C;
+
             }
             .col {
                 display: flex;
