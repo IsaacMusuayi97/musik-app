@@ -3,7 +3,7 @@ import styled from 'styled-components'
 import { FaSearch } from "react-icons/fa"
 import { CgProfile } from "react-icons/cg"
 import { dataContext } from '../utils/context'
-import '../Body.css';
+import '../components/Navbar.css';
 
 function Navbar({ navBackground }) {
     const globalData = useContext(dataContext)
@@ -16,11 +16,10 @@ function Navbar({ navBackground }) {
     }
 
     useEffect(() => {
-        // console.log(globalData)
-        globalData.spotify.search(search, ['track']).then(data => {
-            const {items, limit} = data;
-            console.log(items);
-            setArtists(data);
+        console.log(globalData)
+        globalData.spotify.search(search, ['album', 'playlist', 'track', 'artist']).then(data => {
+            console.log(data)
+            setArtists(data.artists.items)
         })
             .catch(err => {
                 console.log(err);
@@ -37,21 +36,22 @@ function Navbar({ navBackground }) {
                 <div className="avatar">
                     <button onClick={handleClick}>
                         <CgProfile />
-                        <span>{globalData.user.name}</span>
+                        <span className='userName'>{globalData.user.name}</span>
                     </button>
                 </div>
             </Container>
             <div className='containerDisplay'>
-
-                {/* {tracks.length > 0 && artists.map((track) => <>
-
-                <p>{track.name}</p>
-               
+                 
+                {artists.length > 0 && artists.map((artist) => <>
+                    <div className='container--nameImage'> 
+                <p>{artist.items}</p>
                 
-                    
-                <img className='imageDisplay' src={track.images && track.images.length !== 0 ? track.images[0].url : ''} alt="" />
-                    
-                </>)} */}
+               
+                <img className='imageDisplay' src={artist.images && artist.images.length !== 0 ? artist.images[0].url : ''} alt="" />
+                <div className='artist--name'>{artist.name}</div>
+                </div>
+                </>)}
+               
             </div>
         </>
     )
