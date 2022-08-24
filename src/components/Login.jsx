@@ -5,7 +5,7 @@ import './Login.css';
 function Login() {
     const handleClick = () => {
         const clientId = "f950d0fa8f89439eb70580ddfda6d4b5"
-        const redirectUrl = "http://https://musik-app.vercel.app/"
+        const redirectUrl = "https://musik-app.vercel.app/"
         // const redirectUrl = "http://localhost:3000/"
         const apiUrl = "https://accounts.spotify.com/authorize"
         const scope = [
