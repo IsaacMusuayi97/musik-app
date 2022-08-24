@@ -1,0 +1,46 @@
+
+body {
+    padding: 0;
+    margin: 0px;
+    box-sizing: border-box;
+}
+.container--parent {
+ display: flex;
+ flex-direction: row;
+ flex-wrap: wrap;
+ justify-content: center;
+ gap: 15px;
+}
+.container {
+    background-color: black;
+}
+
+.title {
+    color: white;
+    text-align: left;
+    margin-left: 35px;
+    margin-bottom: 20px;
+  
+}
+.container-image {
+    width: 300px;
+    display: flex;
+    justify-content: center;
+   
+}
+.image {
+   width: 300px;
+}
+.name {
+    font-size: 16px;
+    width: 300px;
+    color: white;
+    margin: 15px 0;
+}
+.play--btn {
+    padding: 5px 40px;
+    background-color: #1B75BB;
+    font-size: 20px;
+    border-radius: 5px;
+    
+}

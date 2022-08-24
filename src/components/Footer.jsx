@@ -1,12 +1,26 @@
-import React from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import styled from "styled-components";
-import CurrentTrack from './CurrentTrack';
+import SpotifyPlayer from 'react-spotify-web-playback';
+import { dataContext } from '../utils/context';
 
 function Footer() {
+  const globalData = useContext( dataContext),
+        [play, setPlay] = useState(false)
+
+  useEffect(()=> {
+    setPlay(true)
+  }, [globalData.uriPlayer])
   return (
-    <Container>
-      <CurrentTrack />
-    </Container>
+      <SpotifyPlayer
+        token= {globalData.token}
+        uris={[globalData.uriPlayer]}
+        play={play}
+        autoPlay={true}
+        showSaveIcon={true}
+        name="Musik Application"
+        initialVolume={0.5}
+        callback = {(state) => !state.isPlaying ? setPlay(false) : null}
+      />
   )
 }
 

@@ -1,54 +1,45 @@
-import axios from 'axios';
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
+import SpotifyWebApi from 'spotify-web-api-js';
 import styled from "styled-components";
-import { reducerCases } from '../utils/Constants';
-import { useStateProvider } from '../utils/StateProvider';
 import Body from './ Body';
 import Footer from './Footer';
 import Navbar from './Navbar';
-import Playlists from './Playlists';
 import Sidebar from './Sidebar';
+import {dataContext} from '../utils/context'
 
 function Spotify() {
- const [{ token }, dispatch] = useStateProvider();
- const bodyRef = useRef();
  const [navBackground, setNavBackground] = useState(false);
  const [headerBackground, setHeaderBackground] = useState(false);
- const bodyScrolled = () => {
-     bodyRef.current.scrollTop >= 30 
-     ? setNavBackground(true)
-      : setNavBackground(false);
-      bodyRef.current.scrollTop >= 268
-      ? setHeaderBackground(true)
-      : setHeaderBackground(false)
- };
- useEffect(() => {
-     const getUserInfo = async ()=> {
-         const {data} = await axios.get(" https://api.spotify.com/v1/me", {
-             headers: {
-                Authorization: "Bearer " + token,
-                "Content-Type": "application/json",
-             },
-         });
-         const userInfo = {
-            userId: data.id,
-            userName: data.display_name,
-        };
-        dispatch({type:reducerCases.SET_USER, userInfo});
-     };
-     getUserInfo();
+ const [songs, setSongs] = useState([]);
+ const globalData = useContext(dataContext);
+ const spotify = new SpotifyWebApi();
+//  const bodyScrolled = () => {
+//      bodyRef.current.scrollTop >= 30 
+//      ? setNavBackground(true)
+//       : setNavBackground(false);
+//       bodyRef.current.scrollTop >= 268
+//       ? setHeaderBackground(true)
+//       : setHeaderBackground(false)
+//  };
 
- }, [dispatch, token]);
+ useEffect(() => {
+    spotify.setAccessToken(globalData.token)
+    spotify.getMyTopTracks({})
+    .then((data)=> {
+       setSongs(data.items)
+    })
+    .catch((error)=>{console.error(error)})
+ }, []);
     return (
         <Container>
             <div className="spotify__body">
                 
                 <Sidebar />
                 {/* <Playlists /> */}
-                <div className="body" ref={bodyRef} onScroll={bodyScrolled}>
+                <div className="body" >
                     <Navbar navBackground={navBackground}/>
                     <div className="body__contents">
-                        <Body headerBackground={headerBackground}/>
+                        <Body headerBackground={headerBackground} songs={songs}/>
                     </div>
                 </div>
             </div>
